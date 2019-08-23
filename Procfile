@@ -1,1 +1,1 @@
-web: gunicorn chemprojects up.wsgi --log-file -
+web: gunicorn chemprojects .wsgi --log-file -
