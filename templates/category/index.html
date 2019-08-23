@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} Category {% endblock title %}
+    {% block content %}
+        <div class="container"><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-success"><i class="fas fa-plus"></i> เพิ่มหมวดหมู่</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-md-6">
+                    <h4>1. อุปกรณ์ป้องกันใบหน้าและดวงตา</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if face_and_eyes %}
+                                    {% for face_and_eyes in face_and_eyes %}
+                                    <tr>
+                                        <td><img src="{{ face_and_eyes.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ face_and_eyes.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>2. อุปกรณ์ป้องกันมือ</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if hand %}
+                                    {% for hand in hand %}
+                                    <tr>
+                                        <td><img src="{{ hand.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ hand.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>3. อุปกรณ์ป้องกันศีรษะ</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if crown %}
+                                    {% for crown in crown %}
+                                    <tr>
+                                        <td><img src="{{ crown.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ crown.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>4. อุปกรณ์ป้องกันเท้า</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if foot %}
+                                    {% for foot in foot %}
+                                    <tr>
+                                        <td><img src="{{ foot.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ foot.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>5. อุปกรณ์ป้องกันร่างกาย</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if suit %}
+                                    {% for suit in suit %}
+                                    <tr>
+                                        <td><img src="{{ suit.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ suit.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>6. อุปกรณ์ป้องกันระบบทางเดินหายใจ</h4>                        
+                    <div class="data-category">
+                        <table class="table"><br>
+                            <thead>
+                                <tr>
+                                    <th scope="col">สัญลักษณ์</th>
+                                    <th scope="col">ชื่อหมวดหมู่</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if respiratory_tract %}
+                                    {% for respiratory_tract in respiratory_tract %}
+                                    <tr>
+                                        <td><img src="{{ respiratory_tract.ppe_sign.url }}" style="width:64px;"></td>
+                                        <td>{{ respiratory_tract.name }}</td>
+                                        <td><a class="btn btn-warning" href="#" role="button">แก้ไข</a> 
+                                        <a class="btn btn-danger" href="#" role="button">ลบ</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">ไม่มีหมวดหมู่</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock content %}

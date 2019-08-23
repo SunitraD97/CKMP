@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %} {{ chemistry.experiment_name }} {% endblock title %}
+{% block content %}
+    <style>
+    input[type="text"],select {
+      width: 100%;
+      padding: 6px 15px;
+      display: inline-block;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    </style>
+    <section id="create" class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mx-auto">
+                    <div class="row page-titles">
+                        <div class="col-md-12 align-self-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'index' %}"><i class="fas fa-home"></i> หน้าหลัก </a></li>
+                                <li class="breadcrumb-item active">{% block name %} {{ chemistry.experiment_name }} {% endblock name %}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 mx-auto">
+                    <div class="card">
+                        <div class="card-header bg-info text-white text-center"><br>
+                            <h3> รายละเอียดการทดลอง</h3><br>
+                        </div><br>
+                        <div class="card-body">
+                            <form action="{% url 'detail' chemistry.id %}" method="POST">
+                                {% csrf_token %}
+                                    <h5>1. เกี่ยวกับรายวิชา</h5>
+                                    <div class="form-group">
+                                        <label for="name">ชื่อรายวิชา : {{ chemistry.course}}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">รหัสวิชา : {{ chemistry.course_number }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">ชื่อหนังสือ : {{ chemistry.titile }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">เล่มที่ : {{ chemistry.book_number }}</label><br>
+                                    </div><hr>
+
+                                    <h5>2. การทดลอง</h5>
+                                    <div class="form-group">
+                                        <label for="thainame" class="mb-2 mr-sm-4">การทดลองที่ : {{ chemistry.experiment_number }}</label><br>
+                                        <label for="chemname" class="mb-2 mr-sm-4">ชื่อการทดลอง : {{ chemistry.experiment_name }}</label>
+                                    </div><hr>
+
+                                    <h5>3. สารเคมีที่ใช้</h5>
+                                    <div class="form-group">
+                                        <label for="name" class="mb-2 mr-sm-4">ชื่อสารเคมี : {{ chemistry.chemical_name }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">สมบัติของสารเคมี : {{ chemistry.chemical_properties }}</label><br>
+                                        <label for="name">สัญลักษณ์ GHS : <img src="{{ chemistry.ghs_sign.url }}" style="width:128px;"></label>
+                                    </div><hr>
+
+                                    <h5>5. การทิ้งของเสีย</h5>
+                                    <div class="form-group">
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w1 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w2 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w3 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w4 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w5 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w6 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w7 }}</label><br>
+                                        <label for="name" class="mb-2 mr-sm-4">W1 : {{ chemistry.w }}</label><br>
+                                    </div><hr>
+
+                                    <h5>6. ปฏิกิริยาที่เกิดขึ้นจากการทดลอง</h5>
+                                    <div class="form-group">
+                                        <label for="name" class="mb-2 mr-sm-4">{{ chemistry.reactions }}</label>
+                                    </div><hr>
+
+                                <!--Button-->
+                                <div class="text-center">
+                                    <a href="{% url 'edit' chemistry.id %}" class="btn btn-warning"><i class="fas fa-edit"></i> แก้ไข</a>
+                                    <a href="{% url 'index' %}" class="btn btn-danger">ยกเลิก</a>
+                                </div>
+                                <input type="hidden" name="chemistryid" id="chemistryid" value="{{ chemistry.id }}">
+                            </form>
+                        </div>
+                    </div>
+	            </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

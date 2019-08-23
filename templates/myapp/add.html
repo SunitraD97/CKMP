@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %} เพิ่มการทดลอง {% endblock title %}
+{% block content %}
+    <style>
+    input[type="text"],select {
+      width: 100%;
+      padding: 6px 15px;
+      display: inline-block;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    </style>
+    <section id="create" class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mx-auto">
+                    <div class="row page-titles">
+                        <div class="col-md-12 align-self-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'index' %}"><i class="fas fa-home"></i> หน้าหลัก </a></li>
+                                <li class="breadcrumb-item active"> เพิ่มการทดลอง</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 mx-auto">
+                    <div class="card">
+                        <div class="card-header bg-info text-white text-center"><br>
+                            <h3> เพิ่มข้อมูลการทดลอง</h3><br>
+                        </div><br>
+                        <div class="card-body">
+                            <form action="{% url 'add' %}" method="POST">
+                                {% csrf_token %}
+                                <h5>1. เกี่ยวกับรายวิชา</h5>
+                                <div class="form-group">
+                                    <label for="name">ชื่อรายวิชา : </label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">เคมี</option>
+                                        <option value="1">ชีววิทยา</option>
+                                    </select>
+                            
+                                    <label for="name" class="mb-2 mr-sm-4">รหัสวิชา : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="RTECS" placeholder="กรุณากรอกรหัสวิชา" required="true">
+
+                                    <label for="name" class="mb-2 mr-sm-4">ชื่อหนังสือ : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="CAS " placeholder="กรุณากรอกชื่อหนังสือ" required="true">
+
+                                    <label for="name" class="mb-2 mr-sm-4">เล่มที่ : </label>
+                                    <input type="number" class="form-control mb-2 mr-sm-4" id="RTECS" placeholder="กรุณากรอกเล่มที่" required="true">
+                                </div><hr>
+
+                                <h5>2. การทดลอง</h5>
+                                <div class="form-group">
+                                    <label for="thainame" class="mb-2 mr-sm-4">การทดลองที่ : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="thainame" placeholder="กรุณากรอกการทดลอง"  required="true">
+                                
+                                    <label for="chemname" class="mb-2 mr-sm-4">ชื่อการทดลอง : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="chemname" placeholder="กรุณากรอกชื่อการทดลอง"required="true">
+                                </div><hr>
+
+                                <h5>3. สารเคมีที่ใช้</h5>
+                                <div class="form-group">
+                                    <label for="name" class="mb-2 mr-sm-4">ชื่อสารเคมี : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกชื่อสารเคมี" required="true">
+                                
+                                    <label for="name" class="mb-2 mr-sm-4">สมบัติของสารเคมี : </label>
+                                    <textarea class="form-control" rows="5" id="demolition" placeholder="กรุณากรอกสมบัติของสาร"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">สัญลักษณ์ GHS : </label>
+                                    <input id="icon" type="file" name="icon" required="true">
+                                </div><hr>
+
+                                <h5>4. อุปกรณ์ป้องกันอันตราย</h5>
+                                <!--<div class="form-group">
+                                    <label for="name">- อุปกรณ์ป้องกันใบหน้าและดวงตา (Face and Eye protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">แว่นตานิรภัย (Protective spectacles or Glassess)</option>
+                                        <option value="1">แว่นครอบตา (Goggles)</option>
+                                        <option value="2">กระบังป้องกันใบหน้า (Face shield)</option>
+                                    </select><hr>
+
+                                    <label for="name">- อุปกรณ์ป้องกันมือ (Hand protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">ถุงมือป้องกันความร้อน</option>
+                                        <option value="1">ถุงมือป้องกันสารเคมี</option>
+                                        <option value="2">ถุงมือยางธรรมชาติ (Latex)</option>
+                                        <option value="3">ถุงมือยางไนโทรล์ (Nitrile)</option>
+                                        <option value="4">ถุงมือยาง Polyvinyl Alcohol (PVA)</option>
+                                        <option value="5">ถุงมือยาง Polyvinyl Chloride (PVC)</option>
+                                    </select><hr>
+
+                                    <label for="name">- อุปกรณ์ป้องกันศีรษะ (Head protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">หมวกนิรภัย (Safety Hat)</option>
+                                        <option value="1">หมวกกันศรีษะชน (Bump Hat)</option>
+                                    </select><hr>
+
+                                    <label for="name">- อุปกรณ์ป้องกันเท้า (Foot protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">รองเท้าป้องกันอันตรายจากไฟฟ้า</option>
+                                        <option value="1">รองเท้านิรภัย</option>
+                                        <option value="2">รองเท้าป้องกันสารเคมี</option>
+                                    </select><hr>
+
+                                    <label for="name">- อุปกรณ์ป้องกันร่างกาย (Body protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">ชุดป้องกันสารเคมี</option>
+                                        <option value="1">ชุดป้องกันความร้อน</option>
+                                        <option value="2">ชุดป้องกันการติดไฟ</option>
+                                        <option value="3">เสื้อคลุมตะกั่ว</option>
+                                    </select><hr>
+
+                                    <label for="name">- อุปกรณ์ป้องกันระบบทางเดินหายใจ (Respiratory protection)</label>
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option value="0">หน้ากากอนามัย</option>
+                                        <option value="1">หน้ากากกรองชนิดใช้แล้วทิ้ง</option>
+                                        <option value="2">หน้ากากกรองชนิดใช้ซ้ำ</option>
+                                    </select>
+
+                                </div>-->
+                                <div class="form-group">
+                                    <select name="cat_type" id="cat_type" required="true">
+                                        <option class="0">1. อุปกรณ์ป้องกันใบหน้าและดวงตา</option>
+                                        <option value="1">2. อุปกรณ์ป้องกันมือ</option>
+                                        <option value="2">3. อุปกรณ์ป้องกันศีรษะ</option>
+                                        <option value="3">4. อุปกรณ์ป้องกันเท้า</option>
+                                        <option value="4">5. อุปกรณ์ป้องกันร่างกาย</option>
+                                        <option value="5">6. อุปกรณ์ป้องกันระบบทางเดินหายใจ</option>
+                                    </select>
+                                </div><hr>
+
+                                <h5>5. การทิ้งของเสีย</h5>
+                            <!--W1-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W1 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W2-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W2 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W3-->
+                                <div class="form-inline">                           
+                                    <label for="name" class="mb-2 mr-sm-4">W3 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W4-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W4 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W5-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W5 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W6-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W6 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--W7-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W7 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div>
+                            <!--ETC-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">ETC : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " placeholder="กรุณากรอกสี" required="true">
+                                </div><hr>
+
+                                <h5>6. ปฏิกิริยาที่เกิดขึ้นจากการทดลอง</h5>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="5" id="demolition" placeholder="กรุณากรอกปฏิกิริยาที่เกิดขึ้นจากการทดลอง"></textarea>
+                                </div><hr>
+
+                                <!--Button-->
+                                <div class="text-center">
+                                    <input type="submit" value="บันทึก" class="btn btn-success">
+                                    <a href="{% url 'index' %}" class="btn btn-danger">ยกเลิก</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+	            </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

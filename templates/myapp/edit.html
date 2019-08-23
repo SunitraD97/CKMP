@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %} {{ chemistry.experiment_name }} {% endblock title %}
+{% block content %}
+    <style>
+    input[type="text"],select {
+      width: 100%;
+      padding: 6px 15px;
+      display: inline-block;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    </style>
+    <section id="create" class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mx-auto">
+                    <div class="row page-titles">
+                        <div class="col-md-12 align-self-center">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'index' %}"><i class="fas fa-home"></i> หน้าหลัก </a></li>
+                                <li class="breadcrumb-item active">{% block name %} {{ chemistry.experiment_name }} {% endblock name %}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 mx-auto">
+                    <div class="card">
+                        <div class="card-header bg-info text-white text-center"><br>
+                            <h3> แก้ไขข้อมูลการทดลอง</h3><br>
+                        </div><br>
+                        <div class="card-body">
+                            <form action="{% url 'editsave' %}" method="POST">
+                                {% csrf_token %}
+                                <h5>1. เกี่ยวกับรายวิชา</h5>
+                                <div class="form-group">
+                                    <label for="name">ชื่อรายวิชา : </label>
+                                    <select name="course" id="course" required="true">
+                                        <option value="0" {% if chemistry.course == 0 %} selected {% endif %}>เคมี</option>
+                                        <option value="1" {% if chemistry.course == 0 %} selected {% endif %}>ชีววิทยา</option>
+                                    </select>
+                            
+                                    <label for="name" class="mb-2 mr-sm-4">รหัสวิชา : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="RTECS" value="{{ chemistry.course_number }}" required="true">
+
+                                    <label for="name" class="mb-2 mr-sm-4">ชื่อหนังสือ : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="CAS " value="{{ chemistry.titile }}" required="true">
+
+                                    <label for="name" class="mb-2 mr-sm-4">เล่มที่ : </label>
+                                    <input type="number" class="form-control mb-2 mr-sm-4" id="RTECS" value="{{ chemistry.book_number }}" required="true">
+                                </div><hr>
+
+                                <h5>2. การทดลอง</h5>
+                                <div class="form-group">
+                                    <label for="thainame" class="mb-2 mr-sm-4">การทดลองที่ : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="thainame" value="{{ chemistry.experiment_number }}"  required="true">
+                                
+                                    <label for="chemname" class="mb-2 mr-sm-4">ชื่อการทดลอง : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="chemname" value="{{ chemistry.experiment_name }}" required="true">
+                                </div><hr>
+
+                                <h5>3. สารเคมีที่ใช้</h5>
+                                <div class="form-group">
+                                    <label for="name" class="mb-2 mr-sm-4">ชื่อสารเคมี : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " value="{{ chemistry.chemical_name  }}" required="true">
+                                
+                                    <label for="name" class="mb-2 mr-sm-4">สมบัติของสารเคมี : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="formula " value="{{ chemistry.chemical_properties }}" required="true">
+                                
+                                    <label for="ghs">สัญลักษณ์ GHS : </label>
+                                    {% if chemistry.ghs_sign != '' %}
+                                    <img style="width:64px;" src="{{chemistry.ghs_sign.url}}">
+                                    {% else %}
+
+                                    {% endif %}
+                                    <input id="ghs" type="file" name="ghs">
+                                </div><hr>
+
+                                <h5>5. การทิ้งของเสีย</h5>
+                            <!--W1-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W1 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w1" value="{{ chemistry.w1 }}" required="true">
+                                </div>
+                            <!--W2-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W2 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w2" value="{{ chemistry.w2 }}" required="true">
+                                </div>
+                            <!--W3-->
+                                <div class="form-inline">                           
+                                    <label for="name" class="mb-2 mr-sm-4">W3 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w3" value="{{ chemistry.w3 }}" required="true">
+                                </div>
+                            <!--W4-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W4 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w4" value="{{ chemistry.w4 }}" required="true">
+                                </div>
+                            <!--W5-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W5 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w5" value="{{ chemistry.w5 }}" required="true">
+                                </div>
+                            <!--W6-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W6 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w6" value="{{ chemistry.w6 }}" required="true">
+                                </div>
+                            <!--W7-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">W7 : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w7" value="{{ chemistry.w7 }}" required="true">
+                                </div>
+                            <!--ETC-->
+                                <div class="form-inline">
+                                    <label for="name" class="mb-2 mr-sm-4">ETC : </label>
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w" value="{{ chemistry.w }}" required="true">
+                                </div><hr>
+
+                                <h5>6. ปฏิกิริยาที่เกิดขึ้นจากการทดลอง</h5>
+                                <div class="form-group">
+                                    <input type="text" class="form-control mb-2 mr-sm-4" id="w" value="{{ chemistry.reactions }}" required="true">
+                                </div><hr>
+
+                                <!--Button-->
+                                <div class="text-center">
+                                    <input type="submit" value="บันทึก" class="btn btn-success">
+                                    <a href="{% url 'index' %}" class="btn btn-danger">ยกเลิก</a>
+                                </div>
+                                <input type="hidden" name="chemistryid" id="chemistryid" value="{{ chemistry.id }}">
+                            </form>
+                        </div>
+                    </div>
+	            </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

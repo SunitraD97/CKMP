@@ -1,0 +1,1 @@
+web: gunicorn chemprojects up.wsgi --log-file -

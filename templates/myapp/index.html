@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %} หน้าหลัก {% endblock title %}
+{% block content %}
+    <section id="create" class="bg-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mx-auto">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'index' %}"><i class="fas fa-home"></i> หน้าหลัก</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+            </div>
+
+            <div class="col-md-9 mx-auto">
+            <a href="{% url 'add' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> เพิ่มการทดลอง</a>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered"><br>
+                        <thead class="thead-light">
+                            <tr class="text-center">
+                                <th scope="col">รหัสวิชา</th>
+                                <th scope="col">รายวิชา</th>
+                                <th scope="col">การทดลองที่</th>
+                                <th scope="col">ชื่อการทดลอง</th>
+                                <th scope="col">จัดการ</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                        {% if chemistry %}
+                            {% for chemistry in chemistry %}
+                                <tr class="text-center" >
+                                    <td>{{ chemistry.course_number }}</td>
+                                    <td>{{ chemistry.course }}</td>
+                                    <td>{{ chemistry.experiment_number }}</td>
+                                    <td>{{ chemistry.experiment_name }}</td>
+                                    <td><div class="dropdown">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">จัดการ</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{% url 'detail' chemistry.id %}"><i class="fas fa-file"></i> ดูข้อมล</a>
+                                            <a class="dropdown-item" href="{% url 'edit' chemistry.id %}"><i class="fas fa-edit"></i> แก้ไข</a>
+                                            <a class="dropdown-item" href="{% url 'delete' chemistry.id %}"><i class="fas fa-trash-alt"></i> ลบ</a>
+                                        </div>
+                                    </div></td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="9" class="text-center">ไม่มีข้อมูลการทดลอง</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
